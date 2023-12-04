@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    box-shadow: 1px 1px 4px rgb(41, 41, 41);
+    z-index: 1;
+    flex-grow: 1;
+    background-color: #e2b47b;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+main{
+    background-color: #f7d7af;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    height: 90%;
+}
+
+.card{
+    width: 25vw;
+    height: 25vh;
+    border-radius: 8px;
+    position: absolute;
+}
+
+.numeration{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-weight: bold;
+    color: #ffffff;
+    width: 26px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+}
+
+.inputUser{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.inputUser input{
+    width: 350px;
+    height: 24px;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.features{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+}
+
+.i i{
+    font-size: 25px;
+}
+
+i{
+    color: rgb(250, 233, 233);
+}
+
+ul{
+    padding: 0px !important;
+}
+
+
+.i{
+    display: flex;
+    column-gap: 40px;
+}
+
+.options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+
+}
+
+.options i {
+    font-size: 40px;
+}
+
+.code{
+    color: black;
+}
+
+.dropdown-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    padding: 0px 10px;
+}
+
+.dropdown-item:hover{
+    background-color: rgba(197, 188, 188, 0.541);
+}
+
+.dropdown-item p{
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.foundedNumber{
+    background-color: green;
+    border: 2px solid greenyellow
+}
+
+@keyframes alertAnimation {
+    from{
+        bottom: 0%;
+    }
+    to{
+        bottom: 15%;
+    }
+}
+
+.alert{
+    position: fixed;
+    z-index: 2;
+    left: 42%;
+    animation: alertAnimation 0.3s forwards;
+}

@@ -36,7 +36,7 @@ function returnColor(color){
     switch(color){
         case "preto" || "preta":
             return "black"; 
-        case "vermelho" || "vermelho":
+        case "vermelho" || "vermelha":
             return "red";
         case "amarelo":
             return "yellow";

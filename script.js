@@ -34,9 +34,9 @@ function pickRandomColor(){
 
 function returnColor(color){
     switch(color){
-        case "preto":
+        case "preto" || "preta":
             return "black"; 
-        case "vermelho":
+        case "vermelho" || "vermelho":
             return "red";
         case "amarelo":
             return "yellow";
@@ -179,7 +179,6 @@ function userInput(){
                     if(cardNumber === divNumber){
                         card.childNodes[0].classList.add("foundedNumber");
                         if(!selecionados.includes(card.classList[1])) selecionados.push(card.classList[1]);
-                        console.log(selecionados);
                     }else{
                         removeClassCard();
                     }
@@ -222,12 +221,12 @@ userText.addEventListener("keypress", (e) => {
             if(newSize){
                 console.log(newSize);
                 if(newSize[0] === "width"){
-                    console.log("Teste");
                     element.style.width = `${newSize[1]}`;
+                    element.style.left = "0px";
                 }
                 if(newSize[0] === "height"){
-                    console.log("Teste");
                     element.style.height = `${newSize[1]}`;
+                    element.style.top = "0px";
                 }
                 if(newSize[0] === "top"){
                     element.style.top = `${newSize[1]+header.offsetHeight}px`;

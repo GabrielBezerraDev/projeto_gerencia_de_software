@@ -1,12 +1,14 @@
 const main = document.querySelector("main");
 const header = document.querySelector("header");
-const elementDrag = [];
+let elmnt = null;
 let dragged = null;
 let amountElements = 2;
 let classDrag = "element";
 let positions = null;
 let newX = null;
 let newY = null;
+let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+let draggedElement = null;
 let colors = ["red","blue"];
 let  userText = document.querySelector("#userText");
 let cards = null;
@@ -63,6 +65,77 @@ function returnSize(size){
     }
 }
 
+// document.addEventListener('mousedown', function(event){
+//     console.log(event.target.classList[0]);
+//     if(event.target.classList[0] === "card") event.target.onmousedown = dragMouseDown;
+// })
+
+// function closeDragElement() {
+//     document.onmouseup = null;
+//     document.onmousemove = null;
+//   }
+
+// function elementDrag(e, pos1,pos2,pos3,pos4) {
+//     e = e || window.event;
+//     e.preventDefault();
+//     pos1 = pos3 - e.clientX;
+//     pos2 = pos4 - e.clientY;
+//     pos3 = e.clientX;
+//     pos4 = e.clientY;
+//     e.target.style.top = (e.target.offsetTop - pos2) + "px";
+//     e.target.style.left = (e.target.offsetLeft - pos1) + "px";
+//   }
+
+
+
+// function dragMouseDown(e) {
+//     let pos1 = pos2 = pos3 = pos4 = 0;
+//     e = e || window.event;
+//     e.preventDefault();
+//     pos3 = e.clientX;
+//     pos4 = e.clientY;
+//     document.onmouseup = function(){
+//         closeDragElement(e);
+//     };
+//     document.onmousemove = function(){
+//         elementDrag(e,pos1,pos2,pos3,pos4);
+//     }
+//   }
+
+
+
+function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+}
+
+function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // Calcula a nova posição
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // Define a nova posição do elemento arrastado
+    if (draggedElement) {
+        draggedElement.style.top = (draggedElement.offsetTop - pos2) + "px";
+        draggedElement.style.left = (draggedElement.offsetLeft - pos1) + "px";
+    }
+}
+
+function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // Armazena o elemento que está sendo arrastado
+    draggedElement = e.target;
+    // Armazena a posição inicial do cursor
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+}
+
 function createDiv(){
     pickRandomColor();
     let div = document.createElement("div");
@@ -70,16 +143,12 @@ function createDiv(){
     p.innerHTML = `${cout}`;
     div.classList.add("card");
     div.classList.add(`${classDrag}${cout}`);
-    div.setAttribute("draggable",true);
+    div.onmousedown = dragMouseDown;
+    elmnt = div;
     main.appendChild(div);
     div.appendChild(p);
     p.classList.add("numeration");
     div.style.backgroundColor = `rgb(${color[0]},${color[1]}, ${color[2]})`;
-    div.addEventListener("drag", (event) => {
-        dragged = event.target; 
-        newX = event.clientX;
-        newY = event.clientY;
-    });
     cards = document.querySelectorAll(".card");
     cout++;
 }
@@ -96,13 +165,12 @@ function removeClassCard(){
 }
 
 function userInput(){
-    let regEx = /ID=\w+/ig
+    let regEx = /ID=\w+/ig;
     found = userText.value.match(regEx);
     console.log(found);
     if(found){
         for(let founded of found){
             if(Number(founded[founded.length-1])){
-                // userText.value = userText.value.replace(`<span style=color:green>${founded}</span>`,`${founded}`);
                 let divNumber = Number(founded.slice(3,founded.length));
                 console.log(divNumber);
                 
@@ -123,20 +191,7 @@ function userInput(){
     }
 }
 
-main.addEventListener("dragover", (event) => {
-    event.preventDefault();
-});
 
-main.addEventListener("drop", (event) => {
-    event.preventDefault();
-    if(event.target.classList.contains("dropzone")){
-        dragged.parentNode.removeChild(dragged);
-        event.target.appendChild(dragged);
-        dragged.style.left = `${newX}px`;
-        dragged.style.top = `${newY}px`;
-        console.log(dragged.style.left);
-    }
-})
 
 userText.addEventListener("keypress", (e) => {
     if(e.code === "Enter"){
